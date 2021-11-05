@@ -24,6 +24,7 @@ a:hover {
 <script>
 
 function svgAlert(msg) {
+if(document.getElementById("alert") == null)
     document.getElementsByTagName("svg")[0].innerHTML += `
     <g id="alert">
     <rect
