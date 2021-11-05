@@ -10,7 +10,16 @@ a:hover {
 </head>
 <body>
 
-<div id="board"> </div>
+<div id="board"> 
+    <form>
+        <label for="data">Inserte el listado de Kryptos a continuación</label>
+        <br>
+        <input type="password" name="data" id="data"/>
+        <br>
+        <button type="submit" onclick="document.getElementById('data').value = document.getElementById('data').value.replace(/\s/g, '')">Generar</button>
+    </form>
+
+</div>
 
 <script>
 
@@ -69,7 +78,7 @@ function genBoard() {
     var board = document.getElementById("board");
     if ( kryptoArray.length == 0 ) { 
         board.remove();
-        location.reload();
+        window.location = window.location.pathname;
         return;
     }
     var krypto          = kryptoArray.shift();
@@ -79,9 +88,9 @@ function genBoard() {
     window.onresize = function(){
         width               = document.documentElement.clientWidth || 1920;
         height              = document.documentElement.clientHeight || 1080;    
-        cardWidth           = width / (Math.ceil(kryptoArray[0][1][0].length / cardsRows) + 2);
+        cardWidth           = width / (Math.ceil(cardsNumber / cardsRows) + 2);
         cardHeight          = height / (cardsRows + 1);
-        cardWMargin         = cardWidth / (Math.ceil(kryptoArray[0][1][0].length / cardsRows) + 2);
+        cardWMargin         = cardWidth / (Math.ceil(cardsNumber / cardsRows) + 2);
         cardHMargin         = cardHeight / (cardsRows + 1);
 
         // end of setup, start generating svg
@@ -139,15 +148,17 @@ function genBoard() {
 }
 
 document.documentElement.style.overflow = 'hidden';
-let inText = null;
-while (inText == null || inText == "") {
-    inText = prompt("Insertá los Krypto en formato JSON:",'[[85, [[1, 2, 3, 9], 13], "((9-1)+(2+3))"], [48, [[2, 4, 6, 1], 6], "((6/(2+1))+4)"], [30, [[3, 10, 5, 18], 11], "(((5+18)+10)/3)"], [25, [[5, 3, 9, 7], 2], "((9+7)/(5+3))"], [22, [[2, 7, 13, 20], 8], "(((7-13)*2)+20)"]]');
-}
-var kryptoArray     = JSON.parse(inText); 
-const cardsRows     = 2;
-var width, height, cardWidth, cardHeight, cardWMargin, cardHMargin;
+//https://stackoverflow.com/a/21210643
+var queryDict = {}
+location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
 
-genBoard();
+const cardsRows     = 2;
+var kryptoArray, width, height, cardWidth, cardHeight, cardWMargin, cardHMargin;
+if ("data" in queryDict){
+    kryptoArray = JSON.parse(decodeURIComponent(queryDict["data"]));
+    genBoard();
+}
+
 </script>
 
 </body>
