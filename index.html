@@ -151,11 +151,11 @@ document.documentElement.style.overflow = 'hidden';
 //https://stackoverflow.com/a/21210643
 var queryDict = {}
 location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
-
 const cardsRows     = 2;
 var kryptoArray, width, height, cardWidth, cardHeight, cardWMargin, cardHMargin;
 if ("data" in queryDict){
     kryptoArray = JSON.parse(atob(decodeURIComponent(queryDict["data"])));
+    kryptoArray.unshift([0,[['?','?','?','?'],'?'],'Perdiste']);
     genBoard();
 }
 
