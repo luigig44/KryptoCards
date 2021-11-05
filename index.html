@@ -104,6 +104,13 @@ function genBoard(krypto) {
         
         let circSize = Math.min(cardWidth*0.8, (cardHMargin+cardHeight)*0.2);
         htmlCode += `
+            <text
+                x="${width /2}"
+                y="${cardHMargin /2}"
+                text-anchor="middle"
+                dominant-baseline="middle"
+                font-size="${cardHMargin/2}">${Number(queryDict["i"])+1}/${kryptoArray.length}</text>
+
             <!-- Icons by https://github.com/twitter/twemoji (CC-BY 4.0) --> 
             <a onclick="svgAlert('${krypto[2]}');">
             <svg
