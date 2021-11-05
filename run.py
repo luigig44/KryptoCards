@@ -2,6 +2,7 @@
 
 import json
 import webbrowser
+import base64
 
 # test data begins, insert program here
 results = [(85, ([1, 2, 3, 9], 13), '((9-1)+(2+3))'),
@@ -11,5 +12,6 @@ results = [(85, ([1, 2, 3, 9], 13), '((9-1)+(2+3))'),
 (22, ([2, 7, 13, 20], 8), '(((7-13)*2)+20)')
 ]
 # test data ends
-
-webbrowser.open('https://luigig44.github.io/KryptoCards/?data='+json.dumps(results))
+url = 'https://luigig44.github.io/KryptoCards/?data='
+# url = 'file:///home/luigi/KryptoCards/index.html?data='
+webbrowser.open(url+base64.b64encode(json.dumps(results).encode('ascii')).decode('ascii'))
